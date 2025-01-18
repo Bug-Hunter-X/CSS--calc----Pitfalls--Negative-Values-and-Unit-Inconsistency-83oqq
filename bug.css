@@ -1,0 +1,19 @@
+The CSS property `calc()` is used to perform calculations within CSS. However, there's a subtle bug that can occur if you're not careful with unit handling.  Consider this example:
+
+```css
+.element {
+  width: calc(50% - 10px);
+}
+```
+
+This seems straightforward: calculate 50% of the container's width and subtract 10 pixels. But if the container's width is, say, 200px, the result will be `100px - 10px = 90px`.  The problem arises when the calculation results in a negative value.  If the container's width was only 5px, then `calc(50% - 10px)` would result in `2.5px - 10px = -7.5px`.  CSS will not allow a negative width and will likely default to 0. This unexpected behavior can be difficult to debug.
+
+Another issue lies in using `calc()` with multiple units without careful consideration. For example:
+
+```css
+.element {
+  width: calc(50% + 2em);
+}
+```
+
+This combines percentages and `em` units.  The behavior might not be what you expect, as the `em` value is relative to the font size of the parent element which might cause unexpected behavior and difficult to debug unless you are tracking these changes very carefully.  It's best to avoid mixing units in `calc()` whenever possible, or at least be extremely cautious when doing so.
