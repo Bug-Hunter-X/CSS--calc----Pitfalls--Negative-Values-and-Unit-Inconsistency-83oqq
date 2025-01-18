@@ -1,0 +1,11 @@
+One way to mitigate the negative value issue is to use `max()` or `min()` along with `calc()`. For example:
+
+```css
+.element {
+  width: max(0, calc(50% - 10px));
+}
+```
+
+This ensures the width is never negative; it will be 0 if the `calc()` result is less than 0.
+
+To address the unit inconsistency issue, it's often best to standardize units or avoid mixing them altogether.   If you need to combine different units, make sure to thoroughly test and understand the interactions between them.   For example, instead of combining percentages and `em`, you might consider calculating all values in pixels to ensure consistency.
